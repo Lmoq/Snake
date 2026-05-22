@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+*.vs
+*CMakeSettings.txt
 
 # Compiled Object files
 *.slo
