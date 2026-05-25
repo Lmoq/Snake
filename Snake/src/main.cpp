@@ -1,18 +1,33 @@
 #include <iostream>
 #include <SDL3/SDL.h>
-#include "main.hpp"
-#include "app.hpp"
+#include <main.hpp>
+#include <app.hpp>
+#include <render/render.hpp>
+#include <states/game_states/state_handler.hpp>
+#include <states/game_states/menu_state.hpp>
 
+
+std::deque<std::unique_ptr<Game_State>> GameStateHandler::state_stack;
 
 int main( int argc, char** argv )
 {
-	if ( !Init_Game() ) {
-		Quit_Game();
+	Game::Context ctx;
+
+	if ( !Init_Game( ctx ) ) 
+	{
+		Quit_Game( ctx );
 		printf( "Game exited early\n" );
 		return 0;
 	}
+	GameStateHandler::switchState( std::make_unique<Menu_State>() );
 
-	Quit_Game();
+	while ( ctx.running ) 
+	{
+		GameStateHandler::listen( ctx );
+		GameStateHandler::render( ctx );
+	}
+
+	Quit_Game( ctx );
 	printf( "Game Quit\n" );
 	return 0;
 }

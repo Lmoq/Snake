@@ -1,9 +1,12 @@
-cmake_minimum_required( VERSION 3.28.0 )
+cmake_minimum_required( VERSION 3.20.0 )
+
+set( CMAKE_CXX_STANDARD 17 )
+set( CMAKE_CXX_STANDARD_REQUIRED TRUE )
 
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR} )
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR} )
 
-add_link_options( "/INCREMENTAL:NO" )
+add_link_options( "/INCREMENTAL:NO" "/CGTHREADS:8" )
 add_compile_options( "/MP" )
 
 project( snake )

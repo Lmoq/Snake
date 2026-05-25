@@ -1,25 +1,20 @@
-cmake_minimum_required( VERSION 3.28.0 )
+cmake_minimum_required( VERSION 3.20.0 )
 
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR} )
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR} )
 
-add_link_options( "/INCREMENTAL:NO" )
+add_link_options( "/INCREMENTAL:NO" "/CGTHREADS:8" )
 add_compile_options( "/MP" )
 
-# Invoke a list dir command to get all cpp source files
-execute_process( 
-	COMMAND powershell "Get-ChildItem -Path . -Recurse -Name | findstr cpp"
-	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/Snake/
 
-	OUTPUT_VARIABLE FILES
-	OUTPUT_STRIP_TRAILING_WHITESPACE
+set( SOURCES
+	"src/main.cpp"
+	"src/app.cpp"
+	"src/states/game_states/game_state.cpp"
+	"src/states/game_states/menu_state.cpp"
+	"src/render/render.cpp"
 )
-# Convert output to list
-separate_arguments( FILES_LIST NATIVE_COMMAND ${FILES} )
-
-set( SOURCES ${FILES_LIST})
 add_executable( ${PROJECT_NAME} ${SOURCES} )
-
 
 target_include_directories( ${PROJECT_NAME} PRIVATE "include" )
 target_link_libraries( ${PROJECT_NAME} PRIVATE SDL3::SDL3 SDL3_ttf::SDL3_ttf )
