@@ -38,8 +38,10 @@ class GameStateHandler
         static void update( Game::Context &ctx ) {
             state_stack.back()->update( ctx );
         }
-        static void render( Game::Context &ctx ) {
-            state_stack.back()->render( ctx, COLOR::BLACK );
+        static void render( Game::Context &ctx ) 
+        {
+            std::unique_ptr<Game_State> &state = state_stack.back();
+            state->render( ctx, state->renderer_clear_color );
         }
 };
 

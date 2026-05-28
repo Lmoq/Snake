@@ -23,8 +23,12 @@ int main( int argc, char** argv )
 
 	while ( ctx.running ) 
 	{
+		ctx.timer.calc_DeltaTime();
+		
 		GameStateHandler::listen( ctx );
 		GameStateHandler::render( ctx );
+
+		ctx.timer.frameLimiter();
 	}
 
 	Quit_Game( ctx );

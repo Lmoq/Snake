@@ -26,6 +26,7 @@ enum class COLOR {
 void drawGrids( SDL_Renderer *renderer, int width, int height, int grid_size );
 void changeRenderColor( Game::Context &ctx, COLOR color, Uint8 alpha = 255 );
 void changeRenderColor( Game::Context &ctx, SDL_Color color );
+SDL_Color getColor( COLOR color, Uint8 alpha = 255 );
 
 
 #endif

@@ -32,9 +32,23 @@ void drawGrids( SDL_Renderer *renderer, int width, int height, int grid_size )
 
 void changeRenderColor( Game::Context &ctx, COLOR color, Uint8 alpha )
 {
-    bool change_color = true;
-    Uint8 r, g, b, a = alpha;
+    SDL_Color c = getColor( color );
 
+    if ( !SDL_SetRenderDrawColor( ctx.renderer, c.r, c.g, c.b, c.a ) ) {
+        SDL_Log( "SetRenderDrawColor failed : %s\n", SDL_GetError() );
+    }
+}
+
+void changeRenderColor( Game::Context &ctx, SDL_Color color )
+{
+    if ( !SDL_SetRenderDrawColor( ctx.renderer, color.r, color.g, color.b, color.a ) ) {
+        SDL_Log( "SetRenderDrawColor failed : %s\n", SDL_GetError() );
+    }
+}
+
+SDL_Color getColor( COLOR color, Uint8 alpha )
+{
+    Uint8 r, g, b, a = alpha;
     switch ( color )
     {
         case COLOR::BLUE:
@@ -80,19 +94,7 @@ void changeRenderColor( Game::Context &ctx, COLOR color, Uint8 alpha )
             break;
 
         default:
-            change_color = false;
             break;
     }
-    if ( !change_color ) return;
-
-    if ( !SDL_SetRenderDrawColor( ctx.renderer, r, g, b, a ) ) {
-        SDL_Log( "SetRenderDrawColor failed : %s\n", SDL_GetError() );
-    }
-}
-
-void changeRenderColor( Game::Context &ctx, SDL_Color color )
-{
-    if ( !SDL_SetRenderDrawColor( ctx.renderer, color.r, color.g, color.b, color.a ) ) {
-        SDL_Log( "SetRenderDrawColor failed : %s\n", SDL_GetError() );
-    }
+    return SDL_Color{ r, g, b, a };
 }

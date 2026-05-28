@@ -8,9 +8,9 @@ void Game_State::listen( Game::Context &ctx )
     {
         switch ( ctx.event.type )
         {
-        case SDL_EVENT_QUIT:
-            ctx.running = false;
-            break;
+            case SDL_EVENT_QUIT:
+                ctx.running = false;
+                break;
         }
     }
 }

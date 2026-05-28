@@ -10,6 +10,12 @@ add_compile_options( "/MP" )
 set( SOURCES
 	"src/main.cpp"
 	"src/app.cpp"
+	"src/timer.cpp"
+	
+	# Gui
+	"src/gui/texts/text.cpp"
+
+	# Game states
 	"src/states/game_states/game_state.cpp"
 	"src/states/game_states/menu_state.cpp"
 	"src/render/render.cpp"

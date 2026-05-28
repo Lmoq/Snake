@@ -2,6 +2,8 @@
 #define __APP_H__
 
 #include <SDL3/SDL.h>
+#include <timer.hpp>
+
 
 namespace Game 
 {
@@ -18,8 +20,9 @@ namespace Game
         int window_width{};
         int window_height{};
 
-        SDL_Event event{};
         bool running = true;
+        SDL_Event event{};
+        Timer timer{ Timer::Scale::Nano };
 	};
 }
 

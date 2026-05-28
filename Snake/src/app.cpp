@@ -28,9 +28,6 @@ bool Init_Game( Game::Context &ctx )
     int window_width = ctx.screen_width * 0.70;
     int window_height = ctx.screen_height * 0.70;
 
-    // Set Framrate
-    // Timer.init( float refresh_rate );
-
     if ( !SDL_CreateWindowAndRenderer(
         "SampleWindow",
         window_width,
@@ -51,6 +48,12 @@ bool Init_Game( Game::Context &ctx )
         SDL_Log( "SetRenderDrawBlendMode Failed : %s\n", SDL_GetError() );
         return false;
     }
+
+    // Custom classes Inits
+    // Set frame rate
+    ctx.timer.init( ctx.displayMode->refresh_rate );
+
+    // Init Game States Text_Handlers
 
 
 	return true;
@@ -90,7 +93,6 @@ bool Init_Display_Info( const SDL_DisplayMode *& display_mode )
         SDL_Quit();
         return false;
     }
-
     return true;
 }
 
@@ -98,6 +100,9 @@ bool Init_Display_Info( const SDL_DisplayMode *& display_mode )
 
 void Quit_Game( Game::Context &ctx )
 {
+    // Destroy font and text_engine from states's Text_Handlers
+    // -------------------
+
     if ( int ttf_quit = TTF_WasInit(); ttf_quit > 0 ) 
     {
         SDL_Log( "TTF was initialized %d times\n", ttf_quit );

@@ -4,11 +4,15 @@
 #include <SDL3/SDL.h>
 #include <app.hpp>
 #include <render/render.hpp>
+#include <gui/texts/text.hpp>
 
 
 class Game_State
 {
     public:
+        Text_Handler TextHandler;
+
+        COLOR renderer_clear_color = COLOR::BLACK;
 
         virtual void listen( Game::Context &ctx );
         virtual void update( Game::Context &ctx ) = 0;
