@@ -6,10 +6,45 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
+
+
+
+// Typed in visual studio
+class Sample_foo {
+	public:
+		int foo;
+};
+
+
+
+
+// Typed in visual studio
+class Sample_foo {
+	public:
+		int foo;
+};
+
+// Typed in neovim
+class Sample_bar {
+    public:
+        int bar;
+};
+
+
+
+
+
+
+
+
+
+
+
+
 class Text 
 {
-	public:
-        std::string text;
+    public:
+        std::string string;
         SDL_Rect rect;
 
         SDL_Color color{};
@@ -36,7 +71,7 @@ class Text_Handler
 
         std::vector<Text> Texts;
 
-        void add_text( std::string text, SDL_Color color, int xpos=0, int ypos=0 );
+        void add_text( std::string string, SDL_Color color, int xpos=0, int ypos=0 );
         bool Init_Font_Engine( Game::Context ctx, std::string font_path, float font_size );
 };
 

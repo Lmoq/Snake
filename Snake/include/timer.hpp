@@ -6,7 +6,7 @@
 
 class Timer 
 {
-	private:
+    private:
 		Uint64 last_frame_tick{};
 		Uint64 tick_delay{};
 
@@ -16,7 +16,7 @@ class Timer
 
 		Uint64( *GetTicks64 )() = nullptr;
 		
-	public:
+    public:
 		enum class Scale {
 			Milli,
 			Nano

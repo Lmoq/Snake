@@ -54,9 +54,8 @@ bool Init_Game( Game::Context &ctx )
     ctx.timer.init( ctx.displayMode->refresh_rate );
 
     // Init Game States Text_Handlers
-
-
-	return true;
+    
+    return true;
 }
 
 bool Init_Display_Info( const SDL_DisplayMode *& display_mode )
@@ -119,6 +118,5 @@ void Quit_Game( Game::Context &ctx )
         SDL_DestroyRenderer( ctx.renderer );
         SDL_Log( "Destroy Renderer\n" );
     }
-	SDL_Quit();
-	
+    SDL_Quit();
 }

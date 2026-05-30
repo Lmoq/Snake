@@ -5,13 +5,13 @@
 #include <timer.hpp>
 
 
-namespace Game 
+namespace Game
 {
-	struct Context 
+    struct Context
     {
         SDL_Window *window = nullptr;
         SDL_Renderer *renderer = nullptr;
-        
+
         const SDL_DisplayMode *displayMode = nullptr;
 
         int screen_width{};
@@ -23,7 +23,7 @@ namespace Game
         bool running = true;
         SDL_Event event{};
         Timer timer{ Timer::Scale::Nano };
-	};
+    };
 }
 
 bool Init_Game( Game::Context &ctx );

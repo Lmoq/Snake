@@ -12,7 +12,7 @@ std::deque<std::unique_ptr<Game_State>> GameStateHandler::state_stack;
 int main( int argc, char** argv )
 {
 	Game::Context ctx;
-
+	
 	if ( !Init_Game( ctx ) ) 
 	{
 		Quit_Game( ctx );
