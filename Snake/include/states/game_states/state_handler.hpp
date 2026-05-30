@@ -10,10 +10,10 @@
 class GameStateHandler 
 {
     private:
-        // States
-        static std::deque<std::unique_ptr<Game_State>> state_stack;
 
     public:
+        // States
+        static std::deque<std::unique_ptr<Game_State>> state_stack;
         enum StateType {
             Menu,
             Play,

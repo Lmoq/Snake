@@ -4,5 +4,6 @@
 #include <SDL3/SDL.h>
 
 constexpr float TARGET_FPS = 60.0;
+constexpr int ENTITY_SIZE = 60;
 
 #endif

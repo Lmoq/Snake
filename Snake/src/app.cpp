@@ -1,7 +1,10 @@
 #include <iostream>
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+
 #include <app.hpp>
+#include <gui/texts/text.hpp>
+#include <states/game_states/menu_state.hpp>
 
 
 bool Init_Game( Game::Context &ctx )
@@ -43,6 +46,8 @@ bool Init_Game( Game::Context &ctx )
         SDL_Log( "GetWindowSize failed : %s\n", SDL_GetError() );
         return false;
     }
+    fixWindowSizeOffset( ctx );
+
 
     if ( !SDL_SetRenderDrawBlendMode( ctx.renderer, SDL_BLENDMODE_BLEND ) ) {
         SDL_Log( "SetRenderDrawBlendMode Failed : %s\n", SDL_GetError() );
@@ -54,6 +59,12 @@ bool Init_Game( Game::Context &ctx )
     ctx.timer.init( ctx.displayMode->refresh_rate );
 
     // Init Game States Text_Handlers
+    if ( !Text_Handler::Init_Font_Engine( ctx, "C:/Windows/Fonts/Arial.ttf", 24 ) ) {
+        return false;
+    }
+    if ( !Menu_State::init_texts( ctx ) ) {
+        return false;
+    }
     
     return true;
 }
@@ -99,8 +110,19 @@ bool Init_Display_Info( const SDL_DisplayMode *& display_mode )
 
 void Quit_Game( Game::Context &ctx )
 {
-    // Destroy font and text_engine from states's Text_Handlers
-    // -------------------
+    // TTF
+    Menu_State::text_handler.Destroy_Texts();
+    // Other states -------- Destroy Texts()
+
+    if ( Text_Handler::font != nullptr ) {
+        TTF_CloseFont( Text_Handler::font );
+        SDL_Log( "Closed Font\n" );
+    }
+
+    if ( Text_Handler::text_engine != nullptr ) {
+        TTF_DestroyRendererTextEngine( Text_Handler::text_engine );
+        SDL_Log( "Destroy Text Engine\n" );
+    }
 
     if ( int ttf_quit = TTF_WasInit(); ttf_quit > 0 ) 
     {
@@ -110,6 +132,7 @@ void Quit_Game( Game::Context &ctx )
         }
     }
     
+    // Renderer
     if ( ctx.window != nullptr ) { 
         SDL_DestroyWindow( ctx.window );
         SDL_Log( "Destroy Window\n" );

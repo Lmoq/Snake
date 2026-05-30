@@ -10,28 +10,7 @@ class Menu_State : public Game_State
         static Text_Handler text_handler;
         
         void update( Game::Context &ctx ) override {};
-        bool Init_Texts();
+        static bool init_texts( Game::Context &ctx );
 };
-
-
-
-
-
-
-
-// Typed in nvim
-class Sample_bar {
-    public:
-        int bar;
-};
-
-// Typed in Visual Studio
-class Sample_foo {
-	public:
-		int foo;
-};
-
-
-
 
 #endif

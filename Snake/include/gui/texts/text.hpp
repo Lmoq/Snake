@@ -7,45 +7,25 @@
 #include <SDL3_ttf/SDL_ttf.h>
 
 
-
-
-// Typed in visual studio
-class Sample_foo {
-	public:
-		int foo;
+enum class Text_Anchor {
+    CENTERX,
+    CENTERY,
+    TOP,
+    BOTTOM,
+    LEFT,
+    RIGHT,
+    TOPLEFT,
+    TOPRIGHT,
+    BOTTOMLEFT,
+    BOTTOMRIGHT
 };
 
-
-
-
-
-// Typed in visual studio
-class Sample_foo {
-    public:
-        int foo;
-};
-
-// Typed in neovim
-class Sample_bar {
-    public:
-        int bar;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-class Text 
+class Text
 {
     public:
         std::string string;
+        Text_Anchor anchor;
+
         SDL_Rect rect;
 
         SDL_Color color{};
@@ -57,23 +37,25 @@ class Text
         std::function<void()> On_Click = nullptr;
         TTF_Text *ttf_text = nullptr;
 
-		bool updateWidth();
+        bool updateWidth();
+        void updateTextAnchor( Game::Context &ctx, Text_Anchor anchor );
 };
 
 namespace Game {
     struct Context;
 };
 
-class Text_Handler 
+class Text_Handler
 {
     public:
-        TTF_Font *font;
-        TTF_TextEngine *text_engine;
+        static TTF_Font *font;
+        static TTF_TextEngine *text_engine;
 
         std::vector<Text> Texts;
 
-        void add_text( std::string string, SDL_Color color, int xpos=0, int ypos=0 );
-        bool Init_Font_Engine( Game::Context ctx, std::string font_path, float font_size );
+        bool add_text( std::string string, SDL_Color color, Text_Anchor anchor = Text_Anchor::CENTERX, int xpos = 0, int ypos = 0 );
+        void Destroy_Texts();
+        static bool Init_Font_Engine( Game::Context ctx, std::string font_path, float font_size );
 };
 
 

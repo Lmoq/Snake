@@ -1,5 +1,6 @@
 #include <iostream>
 #include <app.hpp>
+#include <main.hpp>
 #include <render/render.hpp>
 
 
@@ -28,6 +29,21 @@ void drawGrids( SDL_Renderer *renderer, int width, int height, int grid_size )
             SDL_Log( "Render failed : %s\n", SDL_GetError() );
         }
     }
+}
+
+bool fixWindowSizeOffset( Game::Context &ctx )
+{
+    int modx = ctx.window_width % ENTITY_SIZE;
+    int mody = ctx.window_height % ENTITY_SIZE;
+
+    if ( modx > 0 ) ctx.window_width = ctx.window_width - modx;
+    if ( mody > 0 ) ctx.window_height = ctx.window_height - mody;
+
+    if ( !SDL_SetWindowSize( ctx.window, ctx.window_width, ctx.window_height ) ) {
+        SDL_Log( "SetWindowSize failed : %s\n", SDL_GetError() );
+        return false;
+    }
+    return true;
 }
 
 void changeRenderColor( Game::Context &ctx, COLOR color, Uint8 alpha )
