@@ -18,10 +18,11 @@ class Sample_foo {
 
 
 
+
 // Typed in visual studio
 class Sample_foo {
-	public:
-		int foo;
+    public:
+        int foo;
 };
 
 // Typed in neovim
